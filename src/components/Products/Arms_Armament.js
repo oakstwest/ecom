@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled, { css} from 'styled-components'
+import styled, { css } from 'styled-components'
 import axios from 'axios'
 
 const mainColor = 'black'
@@ -19,66 +19,73 @@ const Title = styled.h1`
 const Button = styled.button`
 border-radius: 5px;
 padding: .50em 2em ;
-margin: 10px auto;
 background: goldenrod;
 color: WHITE;
 border: 2px solid BLACK;
-display: flex;
-  flex-flow: row nowrap;
-  height: 100%;
+  height: 50%;
   font-size: 30px;`
 
- class Arms_Armament extends React.Component{
+class Arms_Armament extends React.Component {
 
-constructor(props){
-    super(props)
+    constructor(props) {
+        super(props)
 
-    this.state={
-        products:[],
-        cart:[]
+        this.state = {
+            products: [],
+            cart: []
+        }
     }
-}
-componentDidMount(){
-    axios.get('/api/products')
-    .then(resp=>{
-        this.setState({
-            products: resp.data
-        })
-    })
-    
-    axios.get('/api/cart')
-    .then(resp=>{
-        this.setState({
-            cart: resp.data
-        })
-    })
+    componentDidMount() {
+        axios.get('/api/products')
+            .then(resp => {
+                this.setState({
+                    products: resp.data
+                })
+            })
 
-}
+        axios.get('/api/cart')
+            .then(resp => {
+                this.setState({
+                    cart: resp.data
+                })
+            })
 
-addProduct(){
-    axios.post('/api/products').then(resp =>{
-        this.setState({
-            cart:resp.data
+    }
+
+    addProduct() {
+        axios.post('/api/products').then(resp => {
+            this.setState({
+                cart: resp.data
+            })
         })
-    })
-}
+    }
 
-    render(){
+    render() {
 
         console.log(this.state.cart)
-        let productsDisplay = this.state.products.map((product,i)=>{
+        let productsDisplay = this.state.products.map((product, i) => {
             return (
-            <div key={i}> 
-            <img src={product.img} alt=""/>
-            <p>{product.title}</p>
-            <button onClick={() => this.addProduct(product.product_id)}>Add To Cart</button>
-             </div>
+                <div key={i}>
+                    <img src={product.img} alt="" />
+                    <p>{product.title}</p>
+                    <Button onClick={() => this.addProduct(product.product_id)}>Add To Cart</Button>
+                </div>
             )
         })
-        return(
+        return (
             <div>
-          <header><Title>Arms and Armament</Title></header>
-                <Link to={'./'}><Button><h3>Home</h3></Button></Link>
+                <header>
+                    <Title>Arms and Armament</Title>
+                </header>
+                <Link to={'./cart'}>
+                    <Button>
+                        <h3>To The Cart</h3>
+                    </Button>
+                </Link>
+
+                <Link to={'./'}><Button>
+                    <h3>Home</h3>
+                </Button></Link>
                 {productsDisplay}
             </div>
         )

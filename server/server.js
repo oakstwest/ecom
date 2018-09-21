@@ -35,15 +35,6 @@ app.put('/api/cart/:id', controller.updateCart);
 
 
 
-app.put('/api/updateProduct/:product_id', controller.updateProduct)
-
-app.put('/api/updateImage/:img_id', controller.updateImage)
-
-// app.get('/api/getProduct',controller.);
-
-app.delete('/api/delete/:product_id', controller.delete)
-
-app.delete('/api/deleteImages/:img_id', controller.deleteImage)
 
 
 
