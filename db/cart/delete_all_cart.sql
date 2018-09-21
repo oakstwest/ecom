@@ -1,0 +1,4 @@
+truncate table cart;
+
+
+

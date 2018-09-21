@@ -21,12 +21,12 @@ const Title = styled.h1`
 const Button = styled.button`
 border-radius: 5px;
 padding: .50em 2em ;
-margin: 10px auto;
+/* margin: 10px auto; */
 background: goldenrod;
 color: WHITE;
 border: 2px solid BLACK;
-display: flex;
-  flex-flow: row nowrap;
+/* display: flex;
+  flex-flow: row nowrap; */
   height: 100%;
   font-size: 30px;`
 
@@ -41,24 +41,32 @@ class Arms_Armament extends React.Component {
     }
     componentDidMount() {
         axios.get('/api/cart')
-            .then(resp => {
+            .then(res => {
                 this.setState({
-                    cart: resp.data
+                    cart: res.data
                 })
             })
 
     }
-
+    deleteProduct(id) {
+        axios.delete(`/api/cart/${id}`).then(res => {
+            console.log(id)
+            this.setState({
+                cart: res.data
+            })
+        })
+    }
 
     render() {
 
         console.log(this.state.cart)
         let productsDisplay = this.state.cart.map((product, i) => {
+            console.log(product.product_id)
             return (
                 <div key={i}>
                     <img src={product.img} alt="" />
                     <p>{product.title}</p>
-                    <Button onClick={() => this.deleteProduct(product.product_id)}>Remove the Product</Button>
+                    <Button onClick={() => this.deleteProduct(product.cart_id)}>If You Want To Remove The Product</Button>
                 </div>
             )
         })
@@ -66,7 +74,8 @@ class Arms_Armament extends React.Component {
         return (
             <div>
                 <header><Title>Arms and Armament</Title></header>
-                <Link to={'./'}><Button><h3>Home</h3></Button></Link>
+                <Link to={'/'}><Button><h3>Home</h3></Button></Link>
+                <Link to={'/check_out'}><Button onClick={()=> this.delete}><h3>Its Time To Pay</h3></Button></Link>
                 {productsDisplay}
             </div>
         )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import axios from 'axios'
@@ -25,44 +25,39 @@ border: 2px solid BLACK;
   height: 50%;
   font-size: 30px;`
 
-class Arms_Armament extends React.Component {
+class Arms_Armament extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            products: [],
-            cart: []
+            products: []
         }
     }
+
     componentDidMount() {
         axios.get('/api/products')
-            .then(resp => {
+            .then(res => {
                 this.setState({
-                    products: resp.data
+                    products: res.data
                 })
             })
 
-        axios.get('/api/cart')
-            .then(resp => {
-                this.setState({
-                    cart: resp.data
-                })
-            })
+       
 
     }
 
-    addProduct() {
-        axios.post('/api/products').then(resp => {
+    addProduct(product_id, quantity=1) {
+        axios.post('/api/products', {product_id, quantity}).then(res => {
             this.setState({
-                cart: resp.data
+                cart: res.data
             })
         })
     }
 
     render() {
 
-        console.log(this.state.cart)
+        console.log(this.state.products)
         let productsDisplay = this.state.products.map((product, i) => {
             return (
                 <div key={i}>

@@ -1,23 +1,11 @@
 module.exports = {
 
-    create: async (req, res) => {
-        const {
-            category,
-            title,
-            description,
-            price,
-            item_num,
-            img,
-            main,
-            product_id
-        } = req.body;
-    },
 
     getProducts: (req, res) => {
         const db = req.app.get('db')
 
         db.display()
-            .then(resp => {
+            .then((resp) => {
                 res.status(200).send(resp)
             })
     },
@@ -28,41 +16,48 @@ module.exports = {
 
 
         db.addProduct([product_id, quantity])
-            .then(resp => {
-                res.status(200).send(resp)
+            .then(() => {
+                res.sendStatus(200)
             })
     },
 
     deleteProduct: (req, res) => {
         const db = req.app.get('db')
-        const { id } = req.params
+        const { cart_id } = req.params
 
-        db.deleteFromCart([id])
+        db.deleteFromCart([cart_id])
             .then((resp) => {
                 res.status(200).send(resp)
-            })
-    },
+    })
+},
+
+
+
 
     updateCart: (req, res) => {
         const db = req.app.get('db')
         const { id } = req.params
-        const {quantity} = req.body
+        const { quantity } = req.body
 
         db.updateCart([quantity, id])
-            .then((resp) => {
-                res.status(200).send(resp)
+            .then(() => {
+                res.sendStatus(200)
             })
     },
 
-    getCart: (req, res) => {
-        const db = req.app.get('db')
+        getCart:async (req, res) => {
+            const db = req.app.get('db')
 
-        db.getCart()
-            .then(resp => {
-                res.status(200).send(resp)
-            })
-    },
-
-
+        //    let cart = await db.get_cart()
+        //    console.log(cart)
+                
+        db.get_cart().then((resp) => {
+                    console.log(resp);
+                    
+                    res.status(200).send(resp)
+                }).catch(err=>{
+                    console.log(err)
+                })
+        }
 
 }

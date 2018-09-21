@@ -19,22 +19,19 @@ massive(CONNECTION_STRING).then(dbInstance => {
     console.log('DB CONNECTED')
 }).catch(err => console.log(err));
 
-// Product Endpoints
+// PRODUCT ENDPOINTS
 app.get('/api/products', controller.getProducts)
 
 app.post('/api/products', controller.addProductToCart);
 
 
-// Cart Endpoints
+// CART ENDPOINTS
 
 app.get('/api/cart', controller.getCart);
 
-app.delete('/api/cart/:id', controller.deleteProduct);
+app.delete('/api/cart/:cart_id', controller.deleteProduct);
 
-app.put('/api/cart/:id', controller.updateCart);
-
-
-
+app.put('/api/cart/:product_id', controller.updateCart);
 
 
 
