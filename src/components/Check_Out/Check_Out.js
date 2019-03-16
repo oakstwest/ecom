@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 
 const mainColor = 'black'
 
-const Title = styled.h1`
+const CoTitle = styled.h1`
   color: ${props => props.color || 'goldenrod'};
   font-size: 5em;
   margin: 25px ;
@@ -21,7 +21,7 @@ const Title = styled.h1`
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
 `
-const SecTitle = styled.h2`
+const CoSecTitle = styled.h2`
 color: ${props => props.color || 'black'};
   font-size: 50px;
   margin: 25px;
@@ -38,7 +38,7 @@ color: ${props => props.color || 'black'};
 		1px 1px 0 white;
 `
 
-const Button = styled.button`
+const CoButton = styled.button`
 border-radius: 5px;
 padding: .50em 2em ;
 background: goldenrod;
@@ -48,16 +48,23 @@ border: 2px solid BLACK;
   font-size: 30px;`
 
 class Check_out extends Component {
-    
+
     render() {
         return (
             <div>
-                <Title>Thank You For Your Money</Title>
-                <SecTitle>Your Credit Card Will Be Charged $20,000,000</SecTitle>
-                <Link to={'./'}><Button>
-                    <h3>Home</h3>
-                </Button></Link>
+                <CoTitle>Thank You For Your Money</CoTitle>
+
+                <CoSecTitle>
+                    Your Credit Card Will Be Charged $20,000,000. Have A Nice Day!
+                 </CoSecTitle>
+
+                <Link to={'./'}>
+                    <CoButton>
+                        <h3>Home</h3>
+                    </CoButton>
+                </Link>
             </div>
+            
         )
     }
 }

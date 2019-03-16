@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import styled, { css} from 'styled-components'
+// import { Link } from 'react-router-dom'
+import styled, {css} from 'styled-components'
 
 const mainColor = 'black'
 
@@ -39,21 +39,27 @@ display: flex;
   height: 100%;
   font-size: 30px;`
 
-
+ 
 class User_Main extends Component {
+  login() {
+    let { REACT_APP_DOMAIN, REACT_APP_CLIENT_ID } = process.env;
+
+    let url = `${encodeURIComponent(window.location.origin)}/auth/callback`
+    window.location = `https://${REACT_APP_DOMAIN}/authorize?client_id=${REACT_APP_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${url}&response_type=code`;
+  }
 
     render() {
         return (
 
-            <div>
+            <div className= {this.props.className}>
                 <Title> The Guarded Citadel </Title>
-                <SecTitle> Weapons For A Past Age</SecTitle>
+                <SecTitle> Weapons From A Past Age</SecTitle>
 
-                <Link to={'./arms_armament'}>
-                    <Button>
+                
+                    <Button onClick={this.login}>
                         <h3> Arms and Armament</h3>
                     </Button>
-                </Link>
+              
 
             </div>
         )
@@ -61,3 +67,4 @@ class User_Main extends Component {
 }
 
 export default User_Main
+

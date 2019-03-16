@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import axios from 'axios'
 
 const mainColor = 'black'
 
-const Title = styled.h1`
+const AaTitle = styled.h1`
   color: ${props => props.color || 'goldenrod'};
   font-size: 5em;
   margin: 25px ;
@@ -16,10 +16,10 @@ const Title = styled.h1`
   width: 100vw;
   height:10vh;
 `
-const Button = styled.button`
+const AaButton = styled.button`
 border-radius: 5px;
 padding: .50em 2em ;
-background: goldenrod;
+background: goldenrod; 
 color: WHITE;
 border: 2px solid BLACK;
   height: 50%;
@@ -43,12 +43,10 @@ class Arms_Armament extends Component {
                 })
             })
 
-       
-
     }
 
-    addProduct(product_id, quantity=1) {
-        axios.post('/api/products', {product_id, quantity}).then(res => {
+    addProduct(product_id, quantity = 1) {
+        axios.post('/api/products', { product_id, quantity }).then(res => {
             this.setState({
                 cart: res.data
             })
@@ -63,24 +61,27 @@ class Arms_Armament extends Component {
                 <div key={i}>
                     <img src={product.img} alt="" />
                     <p>{product.title}</p>
-                    <Button onClick={() => this.addProduct(product.product_id)}>Add To Cart</Button>
+                    <AaButton onClick={() => this.addProduct(product.product_id)}>Add To Cart</AaButton>
                 </div>
             )
         })
+
         return (
             <div>
                 <header>
-                    <Title>Arms and Armament</Title>
+                    <AaTitle>Arms and Armament</AaTitle>
                 </header>
                 <Link to={'./cart'}>
-                    <Button>
+                    <AaButton>
                         <h3>To The Cart</h3>
-                    </Button>
+                    </AaButton>
                 </Link>
 
-                <Link to={'./'}><Button>
-                    <h3>Home</h3>
-                </Button></Link>
+                <Link to={'./'}>
+                    <AaButton>
+                        <h3>Home</h3>
+                    </AaButton>
+                </Link>
                 {productsDisplay}
             </div>
         )
@@ -88,3 +89,6 @@ class Arms_Armament extends Component {
 }
 
 export default Arms_Armament
+
+
+

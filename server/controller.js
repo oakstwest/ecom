@@ -1,6 +1,4 @@
 module.exports = {
-
-
     getProducts: (req, res) => {
         const db = req.app.get('db')
 
@@ -28,11 +26,17 @@ module.exports = {
         db.deleteFromCart([cart_id])
             .then((resp) => {
                 res.status(200).send(resp)
-    })
-},
+            })
+    },
 
-
-
+    deleteAllCart: (req, res) => {
+        const db = req.app.get('db')
+        
+        db.delete_all_cart()
+            .then((resp) => {
+                res.status(200).send(resp)
+            })
+    },
 
     updateCart: (req, res) => {
         const db = req.app.get('db')
@@ -45,19 +49,17 @@ module.exports = {
             })
     },
 
-        getCart:async (req, res) => {
-            const db = req.app.get('db')
+    getCart: async (req, res) => {
+        const db = req.app.get('db')
 
-        //    let cart = await db.get_cart()
-        //    console.log(cart)
-                
         db.get_cart().then((resp) => {
-                    console.log(resp);
-                    
-                    res.status(200).send(resp)
-                }).catch(err=>{
-                    console.log(err)
-                })
-        }
+            console.log(resp);
+
+            res.status(200).send(resp)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
 }
+

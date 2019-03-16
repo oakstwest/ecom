@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const mainColor = 'black'
 
-const Title = styled.h1`
+const CTitle = styled.h1`
   color: ${props => props.color || 'goldenrod'};
   font-size: 5em;
   margin: 25px ;
@@ -18,7 +18,7 @@ const Title = styled.h1`
   width: 100vw;
   height:10vh;
 `
-const Button = styled.button`
+const CButton = styled.button`
 border-radius: 5px;
 padding: .50em 2em ;
 /* margin: 10px auto; */
@@ -49,33 +49,54 @@ class Arms_Armament extends React.Component {
 
     }
     deleteProduct(id) {
-        axios.delete(`/api/cart/${id}`).then(res => {
-            console.log(id)
-            this.setState({
-                cart: res.data
+        axios.delete(`/api/cart/${id}`)
+            .then(res => {
+                this.setState({
+                    cart: res.data
+                })
             })
-        })
+    }
+
+    deleteAllCart() {
+        axios.get(`/api/cartD`)
+            .then(res => {
+                this.setState({
+                    cart: res.data
+                })
+            })
     }
 
     render() {
 
-        console.log(this.state.cart)
+        // console.log(this.state.cart)
         let productsDisplay = this.state.cart.map((product, i) => {
-            console.log(product.product_id)
+            //console.log(product.product_id)
             return (
                 <div key={i}>
                     <img src={product.img} alt="" />
                     <p>{product.title}</p>
-                    <Button onClick={() => this.deleteProduct(product.cart_id)}>If You Want To Remove The Product</Button>
+                    <CButton onClick={() => this.deleteProduct(product.cart_id)}>
+                        If You Want To Remove The Product
+                    </CButton>
                 </div>
             )
         })
-        
+
         return (
             <div>
-                <header><Title>Arms and Armament</Title></header>
-                <Link to={'/'}><Button><h3>Home</h3></Button></Link>
-                <Link to={'/check_out'}><Button onClick={()=> this.delete}><h3>Its Time To Pay</h3></Button></Link>
+                <header><CTitle>Arms and Armament</CTitle></header>
+                <Link to={'/'}>
+                    <CButton>
+                        <h3>Home</h3>
+                    </CButton>
+                </Link>
+
+                <Link to='/check_out'>
+                    <CButton onClick={() => this.deleteAllCart()}>
+                        <h3>Its Time To Pay</h3>
+                    </CButton>
+                </Link>
+
                 {productsDisplay}
             </div>
         )
